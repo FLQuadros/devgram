@@ -8,6 +8,10 @@ import * as faker from 'faker'
 })
 export class PostFooterComponent implements OnInit {
 
+  @Input()
+  postTime!: string | number
+  
+
   @Input() username!: string
 
   pulse: boolean = false
@@ -24,6 +28,7 @@ export class PostFooterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.postTimeRandom()
   }
 
   changeLikeCheckedValue() {
@@ -31,4 +36,31 @@ export class PostFooterComponent implements OnInit {
     this.likeChecked = !this.likeChecked
     setTimeout(() => this.pulse = false, 300)
   }
+
+  postTimeRandom() {
+    let valor = Math.random()
+    if (valor < 0.5) {
+      this.postTime = Math.ceil(Math.random()*59)
+      if( this.postTime == 1) {
+        this.postTime = `${this.postTime} minute ago`
+      } else {
+        this.postTime = `${this.postTime} minutes ago`
+      }
+    } else if (valor < 0.8) {
+      this.postTime = Math.ceil(Math.random()*23)
+      if( this.postTime == 1) {
+        this.postTime = `${this.postTime} hour ago`
+      } else {
+        this.postTime = `${this.postTime} hours ago`
+      }  
+    } else {
+      this.postTime = Math.ceil(Math.random()*30)
+      if( this.postTime == 1) {
+        this.postTime = `${this.postTime} day ago`
+      } else {
+        this.postTime = `${this.postTime} days ago`
+      }  
+    }
+  }
+  //this.postTime = `${Math.ceil(Math.random()*23)} hours ago`
 }
